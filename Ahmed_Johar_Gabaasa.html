@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Johar.com | Gabaasa Hojii Callaa Guddiftuu</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f7fb;color:#172033;line-height:1.6}
+header{background:#073b73;color:#fff;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.logo{font-size:25px;font-weight:bold}.logo span{color:#42c95a}
+nav{display:flex;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;margin:5px 10px;font-weight:bold}nav a:hover{color:#42c95a}
+.hero{background:#fff;text-align:center;padding:35px 15px;border-bottom:4px solid #28a745}.hero h1{font-size:32px;color:#073b73;margin-bottom:8px}.hero p{color:#687386}
+.container{width:94%;max-width:1100px;margin:25px auto}
+.section,.report-box{background:#fff;margin-bottom:20px;padding:25px;border-radius:12px;border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-title{color:#0756b5;font-size:22px;margin-bottom:20px;border-left:6px solid #0756b5;padding-left:12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.field{display:flex;flex-direction:column}
+label{font-weight:bold;margin-bottom:7px}
+input,select{width:100%;padding:13px;border:1px solid #ccd3dc;border-radius:7px;font-size:16px;outline:none;background:#fff}
+input:focus,select:focus{border-color:#0875d1;box-shadow:0 0 0 2px rgba(8,117,209,.1)}
+input[readonly]{background:#eef3f8}
+.villages{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.village{border:1px solid #d5dbe3;padding:13px;border-radius:7px;background:#fafafa;cursor:pointer}.village input{width:auto;margin-right:7px}
+.buttons{text-align:center;margin:25px 0 40px}button{border:0;padding:13px 24px;border-radius:7px;font-size:16px;font-weight:bold;cursor:pointer;margin:5px}
+.submit{background:#159447;color:#fff}.reset{background:#dc3545;color:#fff}.print{background:#0756b5;color:#fff}.share{background:#6f42c1;color:#fff}.linkbox{display:none;margin:15px 0;padding:12px;background:#f1e9ff;border:1px solid #c9b3ef;border-radius:8px;word-break:break-all}.linkbox a{color:#5b2aa8;font-weight:bold}
+.message,.error{display:none;text-align:center;padding:15px;border-radius:7px;margin-bottom:20px;font-weight:bold}
+.message{background:#d4edda;color:#155724}.error{background:#f8d7da;color:#721c24}
+.report-box{display:none}.report-box h2{text-align:center;color:#073b73;margin-bottom:18px}.report-box h3{color:#0756b5;margin-top:20px}
+.report-row{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #ddd;padding:8px 0}
+.report-label{font-weight:bold}.saved-card{background:#f8fafc;border:1px solid #d9e0e8;border-radius:10px;padding:18px;margin-bottom:15px}
+.saved-card h3{color:#073b73;margin-bottom:10px}.delete-btn{background:#dc3545;color:#fff}
+footer{background:#073b73;color:#fff;text-align:center;padding:25px;margin-top:30px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.villages{grid-template-columns:1fr 1fr}header{justify-content:center;text-align:center}nav{margin-top:12px;justify-content:center}.hero h1{font-size:25px}}
+@media(max-width:500px){.villages{grid-template-columns:1fr}.section,.report-box{padding:17px}.logo{font-size:21px}.report-row{flex-direction:column;gap:2px}button{width:90%}}
+@media print{header,.hero,form,footer,.message,.error,.buttons,#gabaasota{display:none!important}.report-box{display:block!important;border:0;box-shadow:none}.container{width:100%;margin:0}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Ahmed Johar<span>.com</span></div>
+<nav>
+<a href="#home">Home</a>
+<a href="#gabaasa">Gabaasa Hojii</a>
+<a href="#gabaasota">Gabaasota</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<h1>Gabaasa Hojii Callaa Guddiftuu</h1>
+<p>Formii Galchuu Odeeffannoo Gabaasaa</p>
+</section>
+
+<div class="container">
+<div id="success" class="message">Gabaasni kee sirriitti guutameera!</div>
+<div id="error" class="error">Mee odeeffannoo barbaachisaa hunda guuti; maqaa gandootaa keessaa yoo xiqqaate tokko filadhu.</div>
+
+<form id="reportForm">
+
+<section class="section" id="currentDateLocation">
+<h2 class="section-title">Guyyaa fi Bakka Ammaa</h2>
+<div class="grid">
+<div class="field"><label>Guyyaa:</label><input id="currentDay" readonly></div>
+<div class="field"><label>Ji'a:</label><input id="currentMonth" readonly></div>
+<div class="field"><label>Bara:</label><input id="currentYear" readonly></div>
+<div class="field"><label>Location:</label><input id="currentLocation" value="Location barbaadaa jira..." readonly></div>
+</div>
+</section>
+
+<section class="section" id="gabaasa">
+<h2 class="section-title">1. Odeeffannoo Waliigalaa</h2>
+<div class="grid">
+<div class="field"><label>Godina:</label><input id="godina" value="Baalee Bahaa" readonly></div>
+<div class="field"><label>Aanaa:</label><input id="aanaa" value="Sawweenaa" readonly></div>
+<div class="field"><label>Walii gala callaa guddiftuu dhihaate (gosa hunda):</label><input type="number" id="waliigalaDhihaate" min="0" required></div>
+</div>
+<br><label>Maqaa gandootaa:</label>
+<div class="villages">
+<label class="village"><input type="checkbox" name="ganda" value="Ardaa Galmaa">Ardaa Galmaa</label>
+<label class="village"><input type="checkbox" name="ganda" value="Oobbarree">Oobbarree</label>
+<label class="village"><input type="checkbox" name="ganda" value="Qoree Kormee">Qoree Kormee</label>
+<label class="village"><input type="checkbox" name="ganda" value="Saldhee Doggommii">Saldhee Doggommii</label>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">2. Baay'ina Xaa'oo Dhihaatee Kootaa Gandootaa</h2>
+<div class="grid">
+<div class="field"><label>1. Ardaa Galmaa - Total:</label><input type="number" id="ardaTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="ardaDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="ardaUREA" min="0"></div>
+<div class="field"><label>2. Oobbarree - Total:</label><input type="number" id="oobTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="oobDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="oobUREA" min="0"></div>
+<div class="field"><label>3. Qoree Kormee - Total:</label><input type="number" id="qoreeTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="qoreeDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="qoreeUREA" min="0"></div>
+<div class="field"><label>4. Saldhee Doggommii - Total:</label><input type="number" id="saldheeTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="saldheeDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="saldheeUREA" min="0"></div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">3. Callaa Guddiftuu Dhihaate</h2>
+<div class="grid">
+<div class="field"><label>DAP:</label><input type="number" id="dhihaateDAP" min="0" required></div>
+<div class="field"><label>UREA:</label><input type="number" id="dhihaateUREA" min="0" required></div>
+<div class="field"><label>Walii gala bara kana dhihaate:</label><input type="number" id="dhihaateWaliigala" min="0" required></div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">4. Kan Raabsame</h2>
+<div class="grid">
+<div class="field"><label>Guyyaa:</label><input type="number" id="raabsameGuyyaa" min="1" max="31" required></div>
+<div class="field"><label>Ji'a:</label><input type="number" id="raabsameJia" min="1" max="12" required></div>
+<div class="field"><label>Bara:</label><input type="number" id="raabsameBara" required></div>
+<div class="field"><label>DAP:</label><input type="number" id="raabsameDAP" min="0" required></div>
+<div class="field"><label>UREA:</label><input type="number" id="raabsameUREA" min="0" required></div>
+<div class="field"><label>Walii gala kan raabsame:</label><input type="number" id="raabsameWaliigala" min="0" required></div>
+</div>
+<br><h3 style="color:#0756b5;margin-bottom:12px;">Baay'ina Xaa'oo Raabsamee Kootaa Gandootaa</h3>
+<div class="grid">
+<div class="field"><label>1. Ardaa Galmaa - Total:</label><input type="number" id="raArdaTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="raArdaDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="raArdaUREA" min="0"></div>
+<div class="field"><label>2. Oobbarree - Total:</label><input type="number" id="raOobTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="raOobDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="raOobUREA" min="0"></div>
+<div class="field"><label>3. Qoree Kormee - Total:</label><input type="number" id="raQoreeTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="raQoreeDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="raQoreeUREA" min="0"></div>
+<div class="field"><label>4. Saldhee Doggommii - Total:</label><input type="number" id="raSaldheeTotal" min="0"></div>
+<div class="field"><label>A. DAP:</label><input type="number" id="raSaldheeDAP" min="0"></div>
+<div class="field"><label>B. UREA:</label><input type="number" id="raSaldheeUREA" min="0"></div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">5. Kan Kuusaa Keessatti Hafe</h2>
+<div class="grid">
+<div class="field"><label>Guyyaa:</label><input type="number" id="hafeGuyyaa" min="1" max="31" required></div>
+<div class="field"><label>Ji'a:</label><input type="number" id="hafeJia" min="1" max="12" required></div>
+<div class="field"><label>Bara:</label><input type="number" id="hafeBara" required></div>
+<div class="field"><label>DAP:</label><input type="number" id="hafeDAP" min="0" required></div>
+<div class="field"><label>UREA:</label><input type="number" id="hafeUREA" min="0" required></div>
+<div class="field"><label>Walii gala kan kuusaa keessatti hafe:</label><input type="number" id="hafeWaliigala" min="0" required></div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">6. Odeeffannoo Hojjataa IVS</h2>
+<div class="grid">
+<div class="field"><label>Maqaa:</label><input type="text" id="hojjataaMaqaa" required></div>
+<div class="field"><label>Lakkoofsa bilbilaa:</label><input type="tel" id="bilbila" required></div>
+<div class="field"><label>Gahee:</label><select id="gahee" required><option value="">-- Gahee filadhu --</option><option>Hojjataa Herregaa</option><option>Hojjataa Mana Kuusaa</option></select></div>
+</div>
+</section>
+
+<div class="buttons">
+<button type="submit" class="submit">Ergi Gabaasa</button>
+<button type="reset" class="reset">Qulqulleessi</button>
+<button type="button" class="print" id="printButton" onclick="window.print()">Print Gabaasa</button>
+    <button type="button" class="share" id="shareButton">Share Gabaasa</button>
+    <div id="shareLinkBox" class="linkbox"></div>
+</div>
+</form>
+
+<div class="report-box" id="reportBox">
+<h2>Gabaasa Hojii Callaa Guddiftuu</h2>
+<div class="report-row"><span class="report-label">Godina:</span><span id="rGodina"></span></div>
+<div class="report-row"><span class="report-label">Aanaa:</span><span id="rAanaa"></span></div>
+<div class="report-row"><span class="report-label">Walii gala callaa guddiftuu dhihaate (gosa hunda):</span><span id="rWaliigalaDhihaate"></span></div>
+<div class="report-row"><span class="report-label">Maqaa gandootaa:</span><span id="rGandoota"></span></div>
+<h3>2. Baay'ina Xaa'oo Dhihaatee Kootaa Gandootaa</h3>
+<div class="report-row"><span class="report-label">1. Ardaa Galmaa - Total:</span><span id="rArdaTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rArdaDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rArdaUREA"></span></div>
+<div class="report-row"><span class="report-label">2. Oobbarree - Total:</span><span id="rOobTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rOobDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rOobUREA"></span></div>
+<div class="report-row"><span class="report-label">3. Qoree Kormee - Total:</span><span id="rQoreeTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rQoreeDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rQoreeUREA"></span></div>
+<div class="report-row"><span class="report-label">4. Saldhee Doggommii - Total:</span><span id="rSaldheeTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rSaldheeDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rSaldheeUREA"></span></div>
+<h3>3. Callaa Guddiftuu Dhihaate</h3>
+<div class="report-row"><span class="report-label">DAP:</span><span id="rDhihaateDAP"></span></div>
+<div class="report-row"><span class="report-label">UREA:</span><span id="rDhihaateUREA"></span></div>
+<div class="report-row"><span class="report-label">Walii gala bara kana dhihaate:</span><span id="rDhihaateWaliigala"></span></div>
+<h3>4. Kan Raabsame</h3>
+<div class="report-row"><span class="report-label">Guyyaa:</span><span id="rRaabsameGuyyaa"></span></div>
+<div class="report-row"><span class="report-label">Ji'a:</span><span id="rRaabsameJia"></span></div>
+<div class="report-row"><span class="report-label">Bara:</span><span id="rRaabsameBara"></span></div>
+<div class="report-row"><span class="report-label">DAP:</span><span id="rRaabsameDAP"></span></div>
+<div class="report-row"><span class="report-label">UREA:</span><span id="rRaabsameUREA"></span></div>
+<div class="report-row"><span class="report-label">Walii gala kan raabsame:</span><span id="rRaabsameWaliigala"></span></div>
+<h3>4. Baay'ina Xaa'oo Raabsamee Kootaa Gandootaa</h3>
+<div class="report-row"><span class="report-label">1. Ardaa Galmaa - Total:</span><span id="rRaArdaTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rRaArdaDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rRaArdaUREA"></span></div>
+<div class="report-row"><span class="report-label">2. Oobbarree - Total:</span><span id="rRaOobTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rRaOobDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rRaOobUREA"></span></div>
+<div class="report-row"><span class="report-label">3. Qoree Kormee - Total:</span><span id="rRaQoreeTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rRaQoreeDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rRaQoreeUREA"></span></div>
+<div class="report-row"><span class="report-label">4. Saldhee Doggommii - Total:</span><span id="rRaSaldheeTotal"></span></div>
+<div class="report-row"><span class="report-label">A. DAP:</span><span id="rRaSaldheeDAP"></span></div>
+<div class="report-row"><span class="report-label">B. UREA:</span><span id="rRaSaldheeUREA"></span></div>
+
+
+<h3>4. Kan Kuusaa Keessatti Hafe</h3>
+<div class="report-row"><span class="report-label">Guyyaa:</span><span id="rHafeGuyyaa"></span></div>
+<div class="report-row"><span class="report-label">Ji'a:</span><span id="rHafeJia"></span></div>
+<div class="report-row"><span class="report-label">Bara:</span><span id="rHafeBara"></span></div>
+<div class="report-row"><span class="report-label">DAP:</span><span id="rHafeDAP"></span></div>
+<div class="report-row"><span class="report-label">UREA:</span><span id="rHafeUREA"></span></div>
+<div class="report-row"><span class="report-label">Walii gala kan kuusaa keessatti hafe:</span><span id="rHafeWaliigala"></span></div>
+<h3>6. Odeeffannoo Hojjataa IVS</h3>
+<div class="report-row"><span class="report-label">Maqaa:</span><span id="rMaqaa"></span></div>
+<div class="report-row"><span class="report-label">Lakkoofsa bilbilaa:</span><span id="rBilbila"></span></div>
+<div class="report-row"><span class="report-label">Gahee:</span><span id="rGahee"></span></div>
+</div>
+
+<section class="section" id="gabaasota">
+<h2 class="section-title">Gabaasota Kuufaman</h2>
+<div id="savedReports"><p style="text-align:center;color:#687386;">Ammaaf gabaasni kuufame hin jiru.</p></div>
+</section>
+</div>
+
+<footer id="contact">
+<strong>Ahmed Johar.com</strong><br>
+Damee WHG | Gabaasa Hojii Callaa Guddiftuu<br><br>
+© 2026 Ahmed Johar.com. Mirga hundaa qaba.
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const monthNames = ["Amajjii","Guraandhala","Bitooteessa","Elba","Caamsaa","Waxabajjii","Adooleessa","Hagayya","Fuulbana","Onkololeessa","Sadaasa","Muddee"];
+
+function updateCurrentDate(){
+  const now = new Date();
+  $("currentDay").value = now.getDate();
+  $("currentMonth").value = monthNames[now.getMonth()];
+  $("currentYear").value = now.getFullYear();
+}
+
+function getLocation(){
+  const out = $("currentLocation");
+  if(!navigator.geolocation){
+    out.value = "Geolocation hin deeggaramu";
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat=pos.coords.latitude, lon=pos.coords.longitude;
+    try{
+      const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&accept-language=om`);
+      const d=await r.json();
+      const a=d.address||{};
+      out.value = [a.village||a.town||a.city||a.county, a.state, a.country].filter(Boolean).join(", ") || `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+    }catch(e){
+      out.value = `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+    }
+  }, ()=>{
+    out.value = "Location hayyama";
+  }, {enableHighAccuracy:true, timeout:10000, maximumAge:300000});
+}
+
+function getData(){
+  const gandoota=[...document.querySelectorAll('input[name="ganda"]:checked')].map(x=>x.value);
+  return {
+    godina:$("godina").value,aanaa:$("aanaa").value,
+    waliigalaDhihaate:$("waliigalaDhihaate").value,gandoota:gandoota.join(", "),
+    ardaTotal:$("ardaTotal").value,ardaDAP:$("ardaDAP").value,ardaUREA:$("ardaUREA").value,
+    oobTotal:$("oobTotal").value,oobDAP:$("oobDAP").value,oobUREA:$("oobUREA").value,
+    qoreeTotal:$("qoreeTotal").value,qoreeDAP:$("qoreeDAP").value,qoreeUREA:$("qoreeUREA").value,
+    saldheeTotal:$("saldheeTotal").value,saldheeDAP:$("saldheeDAP").value,saldheeUREA:$("saldheeUREA").value,
+        dhihaateDAP:$("dhihaateDAP").value,dhihaateUREA:$("dhihaateUREA").value,
+    dhihaateWaliigala:$("dhihaateWaliigala").value,
+    raabsameGuyyaa:$("raabsameGuyyaa").value,raabsameJia:$("raabsameJia").value,
+    raabsameBara:$("raabsameBara").value,raabsameDAP:$("raabsameDAP").value,
+    raArdaTotal:$("raArdaTotal").value,raArdaDAP:$("raArdaDAP").value,raArdaUREA:$("raArdaUREA").value,
+    raOobTotal:$("raOobTotal").value,raOobDAP:$("raOobDAP").value,raOobUREA:$("raOobUREA").value,
+    raQoreeTotal:$("raQoreeTotal").value,raQoreeDAP:$("raQoreeDAP").value,raQoreeUREA:$("raQoreeUREA").value,
+    raSaldheeTotal:$("raSaldheeTotal").value,raSaldheeDAP:$("raSaldheeDAP").value,raSaldheeUREA:$("raSaldheeUREA").value,
+        raabsameUREA:$("raabsameUREA").value,raabsameWaliigala:$("raabsameWaliigala").value,
+    hafeGuyyaa:$("hafeGuyyaa").value,hafeJia:$("hafeJia").value,hafeBara:$("hafeBara").value,
+    hafeDAP:$("hafeDAP").value,hafeUREA:$("hafeUREA").value,hafeWaliigala:$("hafeWaliigala").value,
+    maqaa:$("hojjataaMaqaa").value,bilbila:$("bilbila").value,gahee:$("gahee").value
+  };
+}
+
+function showCurrentReport(d){
+  const map={
+    rGodina:"godina",rAanaa:"aanaa",rWaliigalaDhihaate:"waliigalaDhihaate",rGandoota:"gandoota",
+    rArdaTotal:"ardaTotal",rArdaDAP:"ardaDAP",rArdaUREA:"ardaUREA",
+    rOobTotal:"oobTotal",rOobDAP:"oobDAP",rOobUREA:"oobUREA",
+    rQoreeTotal:"qoreeTotal",rQoreeDAP:"qoreeDAP",rQoreeUREA:"qoreeUREA",
+    rSaldheeTotal:"saldheeTotal",rSaldheeDAP:"saldheeDAP",rSaldheeUREA:"saldheeUREA",
+        rDhihaateDAP:"dhihaateDAP",rDhihaateUREA:"dhihaateUREA",rDhihaateWaliigala:"dhihaateWaliigala",
+    rRaabsameGuyyaa:"raabsameGuyyaa",rRaabsameJia:"raabsameJia",rRaabsameBara:"raabsameBara",
+    rRaabsameDAP:"raabsameDAP",rRaabsameUREA:"raabsameUREA",rRaabsameWaliigala:"raabsameWaliigala",
+    rRaArdaTotal:"raArdaTotal",rRaArdaDAP:"raArdaDAP",rRaArdaUREA:"raArdaUREA",
+    rRaOobTotal:"raOobTotal",rRaOobDAP:"raOobDAP",rRaOobUREA:"raOobUREA",
+    rRaQoreeTotal:"raQoreeTotal",rRaQoreeDAP:"raQoreeDAP",rRaQoreeUREA:"raQoreeUREA",
+    rRaSaldheeTotal:"raSaldheeTotal",rRaSaldheeDAP:"raSaldheeDAP",rRaSaldheeUREA:"raSaldheeUREA",
+    rHafeGuyyaa:"hafeGuyyaa",rHafeJia:"hafeJia",rHafeBara:"hafeBara",rHafeDAP:"hafeDAP",
+    rHafeUREA:"hafeUREA",rHafeWaliigala:"hafeWaliigala",rMaqaa:"maqaa",rBilbila:"bilbila",rGahee:"gahee"
+  };
+  Object.entries(map).forEach(([el,key])=>$(el).textContent=d[key] ?? "");
+  $("reportBox").style.display="block";
+  $("printButton").style.display="inline-block";
+}
+
+function showReports(){
+  const reports=JSON.parse(localStorage.getItem("AhmedJoharGabaasota")||"[]");
+  const box=$("savedReports");
+  if(!reports.length){
+    box.innerHTML="<p style='text-align:center;color:#687386;'>Ammaaf gabaasni kuufame hin jiru.</p>";
+    return;
+  }
+  box.innerHTML="";
+  reports.forEach((r,i)=>{
+    const card=document.createElement("div");
+    card.className="saved-card";
+    card.innerHTML=`
+      <h3>Gabaasa ${i+1}</h3>
+      <p><strong>Godina:</strong> ${escapeHtml(r.godina)}</p>
+      <p><strong>Aanaa:</strong> ${escapeHtml(r.aanaa)}</p>
+      <p><strong>Gandoota:</strong> ${escapeHtml(r.gandoota)}</p>
+       <p><strong>Ardaa Galmaa:</strong> Total ${escapeHtml(r.ardaTotal)} | DAP ${escapeHtml(r.ardaDAP)} | UREA ${escapeHtml(r.ardaUREA)}</p>
+       <p><strong>Oobbarree:</strong> Total ${escapeHtml(r.oobTotal)} | DAP ${escapeHtml(r.oobDAP)} | UREA ${escapeHtml(r.oobUREA)}</p>
+       <p><strong>Qoree Kormee:</strong> Total ${escapeHtml(r.qoreeTotal)} | DAP ${escapeHtml(r.qoreeDAP)} | UREA ${escapeHtml(r.qoreeUREA)}</p>
+       <p><strong>Saldhee Doggommii:</strong> Total ${escapeHtml(r.saldheeTotal)} | DAP ${escapeHtml(r.saldheeDAP)} | UREA ${escapeHtml(r.saldheeUREA)}</p>
+      <p><strong>DAP dhihaate:</strong> ${escapeHtml(r.dhihaateDAP)}</p>
+      <p><strong>UREA dhihaate:</strong> ${escapeHtml(r.dhihaateUREA)}</p>
+      <p><strong>DAP raabsame:</strong> ${escapeHtml(r.raabsameDAP)}</p>
+      <p><strong>UREA raabsame:</strong> ${escapeHtml(r.raabsameUREA)}</p>
+       <p><strong>Raabsame Ardaa Galmaa:</strong> Total ${escapeHtml(r.raArdaTotal)} | DAP ${escapeHtml(r.raArdaDAP)} | UREA ${escapeHtml(r.raArdaUREA)}</p>
+       <p><strong>Raabsame Oobbarree:</strong> Total ${escapeHtml(r.raOobTotal)} | DAP ${escapeHtml(r.raOobDAP)} | UREA ${escapeHtml(r.raOobUREA)}</p>
+       <p><strong>Raabsame Qoree Kormee:</strong> Total ${escapeHtml(r.raQoreeTotal)} | DAP ${escapeHtml(r.raQoreeDAP)} | UREA ${escapeHtml(r.raQoreeUREA)}</p>
+       <p><strong>Raabsame Saldhee Doggommii:</strong> Total ${escapeHtml(r.raSaldheeTotal)} | DAP ${escapeHtml(r.raSaldheeDAP)} | UREA ${escapeHtml(r.raSaldheeUREA)}</p>
+      <p><strong>DAP kuusaa keessatti hafe:</strong> ${escapeHtml(r.hafeDAP)}</p>
+      <p><strong>UREA kuusaa keessatti hafe:</strong> ${escapeHtml(r.hafeUREA)}</p>
+      <p><strong>Maqaa:</strong> ${escapeHtml(r.maqaa)}</p>
+      <p><strong>Gahee:</strong> ${escapeHtml(r.gahee)}</p>
+      <button class="delete-btn" onclick="deleteReport(${i})">Haqi</button>
+    `;
+    box.appendChild(card);
+  });
+}
+
+function escapeHtml(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function deleteReport(i){
+  if(!confirm("Gabaasa kana haquu barbaaddaa?")) return;
+  const reports=JSON.parse(localStorage.getItem("AhmedJoharGabaasota")||"[]");
+  reports.splice(i,1);
+  localStorage.setItem("AhmedJoharGabaasota",JSON.stringify(reports));
+  showReports();
+}
+
+const SITE_URL = "https://ahmedjohar.github.io/Ahmed-Johar-website/";
+
+function makeShareLink(data){
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  return SITE_URL + "?report=" + encodeURIComponent(encoded);
+}
+
+function showShareLink(data){
+  const url = makeShareLink(data);
+  const box = $("shareLinkBox");
+  box.innerHTML = "<strong>Linkii gabaasaa:</strong><br><a href='" +
+    escapeHtml(url) + "' target='_blank' rel='noopener'>" + escapeHtml(url) +
+    "</a><br><button type='button' class='share' id='copyLinkButton'>Copy Link</button>";
+  box.style.display = "block";
+  $("copyLinkButton").onclick = async () => {
+    try{
+      await navigator.clipboard.writeText(url);
+      $("copyLinkButton").textContent = "Copied!";
+      setTimeout(()=>$("copyLinkButton").textContent="Copy Link",1500);
+    }catch(err){
+      window.prompt("Linkii kana copy godhi:", url);
+    }
+  };
+  return url;
+}
+
+async function shareReport(data){
+  const url = makeShareLink(data);
+  const title = "Gabaasa Hojii - Ahmed Johar.com";
+  const shareData = {title, text:"Gabaasa Hojii Ahmed Johar.com", url};
+  if(navigator.share){
+    try{ await navigator.share(shareData); }catch(err){}
+  }else{
+    showShareLink(data);
+  }
+}
+
+$("reportForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const gandoota=[...document.querySelectorAll('input[name="ganda"]:checked')];
+  if(!e.target.checkValidity() || !gandoota.length){
+    $("error").style.display="block"; $("success").style.display="none"; return;
+  }
+  const data=getData();
+  const reports=JSON.parse(localStorage.getItem("AhmedJoharGabaasota")||"[]");
+  reports.push(data);
+  localStorage.setItem("AhmedJoharGabaasota",JSON.stringify(reports));
+  showCurrentReport(data);
+  showReports();
+  showShareLink(data);
+  $("success").style.display="block"; $("error").style.display="none";
+  $("reportBox").scrollIntoView({behavior:"smooth"});
+});
+
+$("shareButton").addEventListener("click",()=>{
+  const data=getData();
+  if(!$("reportForm").checkValidity() ||
+     ![...document.querySelectorAll('input[name="ganda"]:checked')].length){
+    $("error").style.display="block";
+    return;
+  }
+  shareReport(data);
+});
+
+function loadSharedReport(){
+  const params = new URLSearchParams(location.search);
+  const encoded = params.get("report");
+  if(!encoded) return;
+  try{
+    const data = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(encoded)))));
+    showCurrentReport(data);
+    $("reportBox").scrollIntoView({behavior:"smooth"});
+    $("success").textContent = "Gabaasni qoodame kun Ahmed Johar.com irratti banameera.";
+    $("success").style.display = "block";
+  }catch(err){
+    $("error").textContent = "Linkii gabaasaa sirrii miti.";
+    $("error").style.display = "block";
+  }
+}
+
+$("reportForm").addEventListener("reset",()=>{
+  setTimeout(()=>{
+    $("success").style.display="none"; $("error").style.display="none";
+    $("reportBox").style.display="none"; $("printButton").style.display="none";
+  },50);
+});
+
+window.addEventListener("load",()=>{
+  updateCurrentDate();
+  getLocation();
+  showReports();
+  loadSharedReport();
+});
+</script>
+</body>
+</html>
