@@ -395,11 +395,4 @@ function loadSharedReport(){
 $("reportForm").addEventListener("reset",()=>{
   setTimeout(()=>{
     $("success").style.display="none"; $("error").style.display="none";
-    $("reportBox").style.display="none"; $("printButton").style.display="none";
-  },50);
-});
-
-window.addEventListener("load",()=>{ showReports(); loadSharedReport(); });
-</script>
-</body>
-</html>
+    $("reportBox").style.display="none"; 
